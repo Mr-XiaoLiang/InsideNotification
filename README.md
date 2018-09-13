@@ -30,9 +30,9 @@
 > * 自动关联Activity生命周期
 
 #### 预览：
-效果预览视频：[视频地址](https://github.com/Mr-XiaoLiang/InsideNotification/blob/master/video/video-2018-09-13-.mov)
-**效果图后是使用说明**
-静态效果图：
+效果预览视频：[视频地址](https://github.com/Mr-XiaoLiang/InsideNotification/blob/master/video/video-2018-09-13-.mov) <br>
+**效果图后是使用说明** <br>
+静态效果图：<br>
 ![效果预览](https://github.com/Mr-XiaoLiang/InsideNotification/blob/master/video/20180913-224226.png)
 
 #### 使用说明：
