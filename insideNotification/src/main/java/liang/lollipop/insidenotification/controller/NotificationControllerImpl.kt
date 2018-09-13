@@ -22,6 +22,7 @@ import liang.lollipop.insidenotification.holder.NotificationHolder
 import liang.lollipop.insidenotification.listener.HolderClickListener
 import liang.lollipop.insidenotification.listener.NotificationClickListener
 import liang.lollipop.insidenotification.listener.NotificationCloseListener
+import liang.lollipop.insidenotification.listener.NotificationStatusListener
 import liang.lollipop.insidenotification.provider.BackgroundType
 import liang.lollipop.insidenotification.provider.NotificationProvider
 import liang.lollipop.insidenotification.utils.BlurUtil
@@ -63,6 +64,8 @@ class NotificationControllerImpl<T>(private val context: Activity,
     private val closeListenerList = ArrayList<NotificationCloseListener>()
 
     private val clickListenerList = ArrayList<NotificationClickListener>()
+
+    private val statusListenerList = ArrayList<NotificationStatusListener>()
 
     private val delayedHandler = DelayedHandler(object :HandlerCallback{
         override fun onHandler(msg: Message) {
@@ -265,6 +268,14 @@ class NotificationControllerImpl<T>(private val context: Activity,
         clickListenerList.remove(listener)
     }
 
+    override fun addStatusListener(listener: NotificationStatusListener) {
+        statusListenerList.add(listener)
+    }
+
+    override fun removeStatusListener(listener: NotificationStatusListener) {
+        statusListenerList.remove(listener)
+    }
+
     override fun onAnimationUpdate(animation: ValueAnimator?) {
         when(animation){
             backgroundAnimator -> {
@@ -295,7 +306,6 @@ class NotificationControllerImpl<T>(private val context: Activity,
             }
         }
     }
-
 
     private class DelayedHandler(private val callback: HandlerCallback): Handler(){
         override fun handleMessage(msg: Message?) {
@@ -352,12 +362,17 @@ class NotificationControllerImpl<T>(private val context: Activity,
                 hideBackground(false)
             }
         }
-
+        for(listener in statusListenerList){
+            listener.onInsideNotificationShown()
+        }
     }
 
     private fun hideGroup(isAnimator: Boolean){
         recyclerView.visibility = View.INVISIBLE
         hideBackground(isAnimator)
+        for(listener in statusListenerList){
+            listener.onInsideNotificationHide()
+        }
     }
 
     private fun showForColorBG(){

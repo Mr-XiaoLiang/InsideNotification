@@ -2,6 +2,7 @@ package liang.lollipop.insidenotification
 
 import liang.lollipop.insidenotification.listener.NotificationClickListener
 import liang.lollipop.insidenotification.listener.NotificationCloseListener
+import liang.lollipop.insidenotification.listener.NotificationStatusListener
 
 /**
  * @date: 2018/09/09 00:18
@@ -39,5 +40,16 @@ interface NotificationController<T> {
      * 移除指定的消息监听器
      */
     fun removeClickListener(listener: NotificationClickListener)
+
+    /**
+     * 添加消息图层状态的监听器
+     */
+    fun addStatusListener(listener: NotificationStatusListener)
+
+    /**
+     * 移除指定的消息监听器
+     */
+    fun removeStatusListener(listener: NotificationStatusListener)
+
 
 }
