@@ -36,6 +36,12 @@
 ![效果预览](https://github.com/Mr-XiaoLiang/InsideNotification/blob/master/video/20180913-224226.png)
 
 #### 使用说明：
+
+引用方式：
+```
+implementation "liang.lollipop.insidenotification:insideNotification:1.0.0"
+```
+
 1. 需要在`Application`中初始化`NotificationManager`。
 ``` Kotlin
     override fun onCreate() {

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 27
@@ -7,7 +8,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
     }
     buildTypes {
@@ -16,7 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
     }
 }
 
@@ -25,9 +28,34 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:recyclerview-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "org.jetbrains.anko:anko-commons:0.10.5"
 }
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+    //加上这些
+    tasks.withType(Javadoc) {
+        options{ encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/7/docs/api/"
+        }
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+
 repositories {
     mavenCentral()
 }
+
+publish {
+    userOrg = 'lollipop'      //bintray注册的用户名
+    groupId = 'liang.lollipop.insidenotification'         //compile引用时的第1部分groupId
+    artifactId = 'insideNotification'     //compile引用时的第2部分项目名
+    publishVersion = '1.0.0'    //compile引用时的第3部分版本号
+    desc = 'a simple in-page message prompt component' //描述
+    website = 'https://github.com/Mr-XiaoLiang/InsideNotification'
+}
+// upload command
+// gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false

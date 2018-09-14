@@ -12,6 +12,8 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        //上传开源库的依赖
+        classpath 'com.novoda:bintray-release:+'
     }
 }
 
@@ -25,3 +27,6 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+tasks.getByPath(":insideNotification:releaseAndroidJavadocs").enabled = false
